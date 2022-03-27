@@ -80,6 +80,7 @@ class Loader:
     def add_nls(self, df_sal, df_inv):
         df_inv = df_inv[['sku', 'NLS']]
         df_sal = pd.merge(df_sal, df_inv, how='left', left_on='sku', right_on='sku')
+        df_sal.NLS = df_sal.NLS.fillna(True)
         return df_sal
 
 
@@ -130,7 +131,7 @@ class Loader:
     def _load_old_sales_data(self):
         # This dataset needs to be cleaned up before merging with newer sales
         df = pd.read_excel(str(config.OLD_SALES_DATA_PATH), dtype=str)
-        df = df.loc[df['SM'] != 'PC2-520']
+        df = df.loc[df['SM'].isin(['PC2-522', 'PC2-527'])]
         df['cost'] = df['cost'].str.replace(",", ".")
         df['price'] = df['price'].str.replace(",", ".")
         df = df.loc[df['quantity'].str.lstrip('-').str.isdigit()]
