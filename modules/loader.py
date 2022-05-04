@@ -56,7 +56,7 @@ class Loader:
     def load_inventory(self):
         df = pd.read_csv(str(config.INVENTORY_PATH), dtype=str, sep='|')
         df_cat = self._load_categories()
-        df = pd.merge(df, df_cat, left_on='sku', right_on='Artikel', how='left')
+        df = pd.merge(df, df_cat, left_on='sku', right_on='sku', how='left')
         df['NLS'] = df['descr'].apply(lambda x: 'NLS' in x)
         df = df[self.inventory_cols]
         df = df.astype(self.inventory_dtypes)
