@@ -1,6 +1,7 @@
 # custom ignore
 /data/*.xlsx
 /data/*.csv
+/data/split/*
 
 # python ignore
 # Byte-compiled / optimized / DLL files
